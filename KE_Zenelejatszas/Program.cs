@@ -47,7 +47,7 @@
             {
                 Console.WriteLine("0. Kilépés");
                 Console.WriteLine("Keresés cím szerint");
-                Console.WriteLine("Zene törlése");
+                Console.WriteLine("2. Zene törlése");
                 Console.WriteLine("Zene módosítása");
                 Console.WriteLine("Új zene");
                 Console.WriteLine("3,5 percnél hosszabbak");
@@ -58,7 +58,28 @@
                 {
                     case "0": return;
                     case "1": break;
-                    case "2": break;
+                    case "2":
+                        string keresettCim = Console.ReadLine();
+
+                        // Keresés listaelemre
+                        Zene torlendo = zenek
+                            .FirstOrDefault(z => z.Cim.Equals(keresettCim, StringComparison.OrdinalIgnoreCase));
+
+                        if (torlendo == null)
+                        {
+                            Console.WriteLine("Nincs ilyen című zene!");
+                        }
+                        else
+                        {
+                            // Eltávolítás a listából
+                            zenek.Remove(torlendo);
+                            Console.WriteLine("A zene törölve!");
+
+                            // Visszaírás a fájlba
+                            File.WriteAllLines("zene.txt",
+                                zenek.Select(z => $"{z.Cim},{z.Eloado},{z.Mufaj},{z.HosszMp}"));
+                        }
+                        break;
                     case "3": break;
                     case "4": break;
                     case "5": break;
