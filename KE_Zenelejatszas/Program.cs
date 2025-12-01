@@ -51,7 +51,7 @@
                 Console.WriteLine("3. Zene módosítása");
                 Console.WriteLine("4. Új zene");
                 Console.WriteLine("5. 3,5 percnél hosszabbak");
-                Console.WriteLine("Csak Pop zenék");
+                Console.WriteLine("6. Csak Pop zenék");
                 Console.WriteLine("7. Zenék betöltése");
                 string valasztas = Console.ReadLine();
                 switch (valasztas)
@@ -181,7 +181,23 @@
                             }
                         }
                         break;
-                    case "6": break;
+                    case "6":
+                        var popZenek = zenek
+        .Where(z => z.Mufaj.Equals("Pop", StringComparison.OrdinalIgnoreCase))
+        .ToList();
+
+                        if (popZenek.Count == 0)
+                        {
+                            Console.WriteLine("Nincs Pop műfajú zene.");
+                        }
+                        else
+                        {
+                            foreach (var z in popZenek)
+                            {
+                                Console.WriteLine($"{z.Cim} - {z.Eloado} ({z.Mufaj}, {z.HosszMp} mp)");
+                            }
+                        }
+                        break;
                     case "7":
                         Console.Clear();
                         int sorszam = 0;
