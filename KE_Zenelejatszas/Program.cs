@@ -4,7 +4,10 @@
     {
         static void Main(string[] args)
         {
-           while (true) {
+            string fajlnev = "C:\\Users\\KoleszarE\\Desktop\\Zenék\\playlist.csv";
+            while (true)
+            {
+                Console.WriteLine("0. Kilépés");
                 Console.WriteLine("Keresés cím szerint");
                 Console.WriteLine("Zene törlése");
                 Console.WriteLine("Zene módosítása");
@@ -16,15 +19,24 @@
                 switch (valasztas)
                 {
                     case "0": return;
-                    case "1": break;
+                    case "1":  break;
                     case "2": break;
                     case "3": break;
                     case "4": break;
                     case "5": break;
                     case "6": break;
-                    case "7": break;
+                    case "7":
+                        Console.Clear();
+                        int sorszam = 0;
+                        foreach (string nev in fajlnev)
+                        {
+                            sorszam++;
+                            Console.WriteLine($"{sorszam}. {nev}");
+                        }
+                        break;
                 }
 
-                }
+            }
         }
+    }
 }
