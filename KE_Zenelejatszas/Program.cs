@@ -46,7 +46,7 @@
             while (true)
             {
                 Console.WriteLine("0. Kilépés");
-                Console.WriteLine("Keresés cím szerint");
+                Console.WriteLine("1. Keresés cím szerint");
                 Console.WriteLine("2. Zene törlése");
                 Console.WriteLine("Zene módosítása");
                 Console.WriteLine("Új zene");
@@ -57,7 +57,23 @@
                 switch (valasztas)
                 {
                     case "0": return;
-                    case "1": break;
+                    case "1": string keresett = Console.ReadLine();
+                        var talalatok = zenek
+                            .Where(z => z.Cim.Contains(keresett, StringComparison.OrdinalIgnoreCase))
+                            .ToList();
+                        if (talalatok.Count == 0)
+                        {
+                            Console.WriteLine("Nincs találat!");
+                        }
+                        else
+                        {
+                            foreach (var zene in talalatok)
+                            {
+                                Console.WriteLine(zene);
+                            }
+                        }
+
+                        break;
                     case "2":
                         string keresettCim = Console.ReadLine();
 
