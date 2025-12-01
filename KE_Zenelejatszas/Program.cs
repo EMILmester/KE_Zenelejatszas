@@ -50,7 +50,7 @@
                 Console.WriteLine("2. Zene törlése");
                 Console.WriteLine("3. Zene módosítása");
                 Console.WriteLine("4. Új zene");
-                Console.WriteLine("3,5 percnél hosszabbak");
+                Console.WriteLine("5. 3,5 percnél hosszabbak");
                 Console.WriteLine("Csak Pop zenék");
                 Console.WriteLine("7. Zenék betöltése");
                 string valasztas = Console.ReadLine();
@@ -166,7 +166,21 @@
                         );
 
                         Console.WriteLine("Az új zene sikeresen hozzáadva!"); break;
-                    case "5": break;
+                    case "5":
+                        var hosszabb = zenek.Where(z => z.HosszMp > 210).ToList();
+
+                        if (hosszabb.Count == 0)
+                        {
+                            Console.WriteLine("Nincs 3,5 percnél hosszabb zene.");
+                        }
+                        else
+                        {
+                            foreach (var z in hosszabb)
+                            {
+                                Console.WriteLine($"{z.Cim} - {z.Eloado} ({z.Mufaj}, {z.HosszMp} mp)");
+                            }
+                        }
+                        break;
                     case "6": break;
                     case "7":
                         Console.Clear();
