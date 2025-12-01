@@ -97,48 +97,51 @@
                         }
                         break;
                     case "3":
-                        string modositando = Console.ReadLine();
+                        string modCim = Console.ReadLine();
 
-                        // Keresés pontos címre
-                        Zene modZene = zenek
-                            .FirstOrDefault(z => z.Cim.Equals(modositando, StringComparison.OrdinalIgnoreCase));
+                        // Régi zene objektum keresése
+                        Zene regizene = zenek
+                            .FirstOrDefault(x => x.Cim.Equals(modCim, StringComparison.OrdinalIgnoreCase));
 
-                        if (modZene == null)
+                        if (regizene == null)
                         {
-                            Console.WriteLine("Nincs ilyen című zene!");
+                            Console.WriteLine("Nincs ilyen című zeneszám!");
+                            break;
                         }
-                        else
-                        {
-                            Console.WriteLine("Add meg az új adatokat (ha nem akarsz módosítani, Enter-rel továbbléphetsz):");
 
-                            Console.Write($"Új cím (régi: {modZene.Cim}): ");
-                            string ujCim = Console.ReadLine();
-                            if (!string.IsNullOrWhiteSpace(ujCim))
-                                modZene.Cim = ujCim;
+                        // Régi zene törlése
+                        zenek.Remove(regizene);
+                        Console.WriteLine("A korábbi zeneszám törölve.");
 
-                            Console.Write($"Új előadó (régi: {modZene.Eloado}): ");
-                            string ujEloado = Console.ReadLine();
-                            if (!string.IsNullOrWhiteSpace(ujEloado))
-                                modZene.Eloado = ujEloado;
+                        // Új zene adatainak bekérése
+                        Console.WriteLine("\nAdd meg az új zeneszám adatait:");
 
-                            Console.Write($"Új műfaj (régi: {modZene.Mufaj}): ");
-                            string ujMufaj = Console.ReadLine();
-                            if (!string.IsNullOrWhiteSpace(ujMufaj))
-                                modZene.Mufaj = ujMufaj;
+                        Console.Write("Új cím: ");
+                        string beCim = Console.ReadLine();
 
-                            Console.Write($"Új hossz mp-ben (régi: {modZene.HosszMp}): ");
-                            string ujHosszTxt = Console.ReadLine();
-                            if (!string.IsNullOrWhiteSpace(ujHosszTxt))
-                                modZene.HosszMp = int.Parse(ujHosszTxt);
+                        Console.Write("Új előadó: ");
+                        string beEloado = Console.ReadLine();
 
-                            // visszaírás a fájlba (fejléc megtartásával)
-                            File.WriteAllLines("zene.txt",
-                                new string[] { "Cim,Eloado,Mufaj,HosszMp" }
-                                .Concat(zenek.Select(z => $"{z.Cim},{z.Eloado},{z.Mufaj},{z.HosszMp}"))
-                            );
+                        Console.Write("Új műfaj: ");
+                        string beMufaj = Console.ReadLine();
 
-                            Console.WriteLine("A zene adatai sikeresen módosítva!");
-                        }
+                        Console.Write("Új hossz másodpercben: ");
+                        int beHossz = int.Parse(Console.ReadLine());
+
+                        // Új zene objektum létrehozása
+                        Zene frissZene = new Zene(beCim, beEloado, beMufaj, beHossz);
+
+                        // Lista frissítése
+                        zenek.Add(frissZene);
+
+                        // Fájlba mentés fejléc megtartásával
+                        File.WriteAllLines("zene.txt",
+                            new string[] { "Cim,Eloado,Mufaj,HosszMp" }
+                            .Concat(zenek.Select(z => $"{z.Cim},{z.Eloado},{z.Mufaj},{z.HosszMp}"))
+                        );
+
+                        Console.WriteLine("Az új zeneszám sikeresen elmentve!");
+
                         break;
                     case "4":
                         Console.Write("Cím: ");
