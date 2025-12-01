@@ -48,8 +48,8 @@
                 Console.WriteLine("0. Kilépés");
                 Console.WriteLine("1. Keresés cím szerint");
                 Console.WriteLine("2. Zene törlése");
-                Console.WriteLine("Zene módosítása");
-                Console.WriteLine("Új zene");
+                Console.WriteLine("3. Zene módosítása");
+                Console.WriteLine("4. Új zene");
                 Console.WriteLine("3,5 percnél hosszabbak");
                 Console.WriteLine("Csak Pop zenék");
                 Console.WriteLine("7. Zenék betöltése");
@@ -140,7 +140,32 @@
                             Console.WriteLine("A zene adatai sikeresen módosítva!");
                         }
                         break;
-                    case "4": break;
+                    case "4":
+                        Console.Write("Cím: ");
+                        string ujCim = Console.ReadLine();
+
+                        Console.Write("Előadó: ");
+                        string ujEloado = Console.ReadLine();
+
+                        Console.Write("Műfaj: ");
+                        string ujMufaj = Console.ReadLine();
+
+                        Console.Write("Hossz mp-ben: ");
+                        int ujHossz = int.Parse(Console.ReadLine());
+
+                        // Objektum létrehozása
+                        Zene ujZene = new Zene(ujCim, ujEloado, ujMufaj, ujHossz);
+
+                        // Hozzáadás a listához
+                        zenek.Add(ujZene);
+
+                        // Visszaírás a fájlba fejléc megtartásával
+                        File.WriteAllLines("zene.txt",
+                            new string[] { "Cim,Eloado,Mufaj,HosszMp" }
+                            .Concat(zenek.Select(z => $"{z.Cim},{z.Eloado},{z.Mufaj},{z.HosszMp}"))
+                        );
+
+                        Console.WriteLine("Az új zene sikeresen hozzáadva!"); break;
                     case "5": break;
                     case "6": break;
                     case "7":
