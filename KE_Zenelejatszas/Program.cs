@@ -96,7 +96,50 @@
                                 zenek.Select(z => $"{z.Cim},{z.Eloado},{z.Mufaj},{z.HosszMp}"));
                         }
                         break;
-                    case "3": break;
+                    case "3":
+                        string modositando = Console.ReadLine();
+
+                        // Keresés pontos címre
+                        Zene modZene = zenek
+                            .FirstOrDefault(z => z.Cim.Equals(modositando, StringComparison.OrdinalIgnoreCase));
+
+                        if (modZene == null)
+                        {
+                            Console.WriteLine("Nincs ilyen című zene!");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Add meg az új adatokat (ha nem akarsz módosítani, Enter-rel továbbléphetsz):");
+
+                            Console.Write($"Új cím (régi: {modZene.Cim}): ");
+                            string ujCim = Console.ReadLine();
+                            if (!string.IsNullOrWhiteSpace(ujCim))
+                                modZene.Cim = ujCim;
+
+                            Console.Write($"Új előadó (régi: {modZene.Eloado}): ");
+                            string ujEloado = Console.ReadLine();
+                            if (!string.IsNullOrWhiteSpace(ujEloado))
+                                modZene.Eloado = ujEloado;
+
+                            Console.Write($"Új műfaj (régi: {modZene.Mufaj}): ");
+                            string ujMufaj = Console.ReadLine();
+                            if (!string.IsNullOrWhiteSpace(ujMufaj))
+                                modZene.Mufaj = ujMufaj;
+
+                            Console.Write($"Új hossz mp-ben (régi: {modZene.HosszMp}): ");
+                            string ujHosszTxt = Console.ReadLine();
+                            if (!string.IsNullOrWhiteSpace(ujHosszTxt))
+                                modZene.HosszMp = int.Parse(ujHosszTxt);
+
+                            // visszaírás a fájlba (fejléc megtartásával)
+                            File.WriteAllLines("zene.txt",
+                                new string[] { "Cim,Eloado,Mufaj,HosszMp" }
+                                .Concat(zenek.Select(z => $"{z.Cim},{z.Eloado},{z.Mufaj},{z.HosszMp}"))
+                            );
+
+                            Console.WriteLine("A zene adatai sikeresen módosítva!");
+                        }
+                        break;
                     case "4": break;
                     case "5": break;
                     case "6": break;
